@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertGreaterThan;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
@@ -14,6 +15,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 
 import org.junit.Assert;
 import org.junit.ComparisonFailure;
@@ -34,6 +36,77 @@ public class AssertionTest {
     @Test(expected = AssertionError.class)
     public void fails() {
         Assert.fail();
+    }
+    
+    @Test
+    public void assertGreaterThanTest() {
+        
+        //I assume a string is grater than another one if it comes first lexicographically.
+        assertGreaterThan("aab", "aad", new Comparator<String>() {
+            public int compare(String o1, String o2) {
+                int result = 0, i = 0, j = 0;
+                while (i < o1.length() && j < o2.length() && result == 0) {
+                    if (o1.charAt(i) < o2.charAt(j)) 
+                        result = 1;
+                    else if (o1.charAt(i) > o2.charAt(j)) 
+                        result = -1;
+                    ++i;
+                    ++j;
+                }
+                
+                if (result == 0) {
+                    if (o1.length() > o2.length())
+                        result = 1;
+                    else if (o1.length() < o2.length())
+                        result = -1;
+                }
+                
+                return result;
+            }
+        });
+
+        assertGreaterThan((byte) 2, (byte) 1, new Comparator<Byte>() {
+            public int compare(Byte o1, Byte o2) {
+                return o1 == o2 ? 0 : o1 > o2 ? 1 : -1;
+            }            
+        });
+        
+        assertGreaterThan('a', 'b', new Comparator<Character>() {
+            public int compare(Character o1, Character o2) {
+                return o1 == o2 ? 0 : o1 < o2 ? 1 : -1;
+            }            
+        });
+        
+        assertGreaterThan((short) 2, (short) 1, new Comparator<Short>() {
+            public int compare(Short o1, Short o2) {
+                return o1 == o2 ? 0 : o1 > o2 ? 1 : -1;
+            }           
+        });
+        
+        assertGreaterThan(1, 0, new Comparator<Integer>() {
+            public int compare(Integer o1, Integer o2) {
+                return o1 == o2 ? 0 : o1 > o2 ? 1 : -1;
+            }            
+        }); 
+
+        assertGreaterThan(5l, 3l, new Comparator<Long>() {
+            public int compare(Long o1, Long o2) {
+                return o1 == o2 ? 0 : o1 > o2 ? 1 : -1;
+            }            
+        });
+        
+        assertGreaterThan(1.0f, 0.0f, new Comparator<Float>() {
+            public int compare(Float o1, Float o2) {
+                return o1 == o2 ? 0 : o1 > o2 ? 1 : -1;
+            }            
+        }
+        );
+        
+        assertGreaterThan(2.3d, 2.1d, new Comparator<Double>() {
+            public int compare(Double o1, Double o2) {
+                return o1 == o2 ? 0 : o1 > o2 ? 1 : -1;
+            }
+        });
     }
 
     @Test
