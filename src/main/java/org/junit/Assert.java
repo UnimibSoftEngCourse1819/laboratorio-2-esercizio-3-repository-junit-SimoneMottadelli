@@ -1,5 +1,7 @@
 package org.junit;
 
+import java.util.Comparator;
+
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.junit.internal.ArrayComparisonFailure;
@@ -26,6 +28,38 @@ public class Assert {
      * Protect constructor since it is a static only class
      */
     protected Assert() {
+    }
+    
+    public static void assertGreaterThan(char c1, char c2, Comparator<Character> comparator) {
+        assertEquals(1, comparator.compare(c1, c2));
+    }
+    
+    public static void assertGreaterThan(float f1, float f2, Comparator<Float> comparator) {
+        assertEquals(1, comparator.compare(f1, f2));
+    }
+    
+    public static void assertGreaterThan(double d1, double d2, Comparator<Double> comparator) {
+        assertEquals(1, comparator.compare(d1, d2));
+    }
+    
+    public static void assertGreaterThan(byte b1, byte b2, Comparator<Byte> comparator) {
+        assertEquals(1, comparator.compare(b1, b2));
+    }
+    
+    public static void assertGreaterThan(short s1, short s2, Comparator<Short> comparator) {
+        assertEquals(1, comparator.compare(s1, s2));
+    }
+    
+    public static void assertGreaterThan(int i1, int i2, Comparator<Integer> comparator) {
+        assertEquals(1, comparator.compare(i1, i2));
+    }
+    
+    public static void assertGreaterThan(long l1, long l2, Comparator<Long> comparator) {
+        assertEquals(1, comparator.compare(l1, l2));
+    }
+    
+    public static void assertGreaterThan(String s1, String s2, Comparator<String> comparator) {
+        assertEquals(1, comparator.compare(s1, s2));
     }
 
     /**
