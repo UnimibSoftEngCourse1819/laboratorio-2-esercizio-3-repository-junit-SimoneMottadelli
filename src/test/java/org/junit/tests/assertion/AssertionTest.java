@@ -35,6 +35,8 @@ public class AssertionTest {
 // @Test (expected=AssertionError.class) public void error() {
 //      assert false;
 //  }
+    
+   
 
     private static final String ASSERTION_ERROR_EXPECTED = "AssertionError expected";
 
